@@ -1,1 +1,1 @@
-# mstorage
+# browser-storage-plus
