@@ -1,0 +1,5 @@
+{
+    "name": "mstorage",
+    "version": "0.0.1",
+    "description": "Enhanced wrapper for localStorage/sessionStorage with additional features like type safety, expiration, encryption, and events"
+}
