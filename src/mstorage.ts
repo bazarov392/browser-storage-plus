@@ -9,11 +9,17 @@ export class MStorage
     private readonly encryptKeys: boolean;
     // private readonly encryptValues: boolean;
 
-    constructor(options: CreateMStorageOptions) {
+    constructor(options: CreateMStorageOptions = {}) {
         if(typeof window === 'undefined')
             throw new Error("MStorage supported only in browser environment");
 
-        this.storage = options.storage === 'local' ? localStorage : sessionStorage;
+        if(options.storage)
+        {
+            if(options.storage === 'local') this.storage = localStorage;
+            else if(options.storage === 'session') this.storage = sessionStorage;
+            else throw new Error("Invalid storage type");
+        }
+        else this.storage = localStorage;
         this.encryptKeys = options.encryptKeys ?? false;
         // this.encryptValues = options.encryptValues ?? false;
     }
@@ -29,9 +35,14 @@ export class MStorage
         this._setItem(this._getKey(key), value, ttl);
     }
 
-    public remove(key: string)
+    public remove(key: string | string[])
     {
-        this._removeItem(this._getKey(key));
+        if(Array.isArray(key))
+        {
+            for(const k of key)
+                this._removeItem(this._getKey(k));
+        }
+        else this._removeItem(this._getKey(key));
     }
 
     public clear()
