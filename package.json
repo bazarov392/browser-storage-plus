@@ -23,5 +23,8 @@
         "modified-storage"
     ],
     "author": "bazarov392",
-    "license": "MIT"
+    "license": "MIT",
+    "exports": {
+        ".": "./dist/index.js"
+    }
 }
