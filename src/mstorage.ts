@@ -102,7 +102,7 @@ export class MStorage
 
     private _setItem(key: string, value: string, ttl: number = 0)
     {
-        const expire = ttl > 0 ? Date.now() + ttl : null;
+        const expire = ttl > 0 ? Date.now() + (ttl * 1000) : null;
         const data: MStorageItem = [value, expire];
         this.storage.setItem(key, JSON.stringify(data));
     }
