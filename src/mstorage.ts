@@ -10,13 +10,28 @@ export class MStorage
     // private readonly encryptValues: boolean;
 
     constructor(options: CreateMStorageOptions = {}) {
+        
         if(options.storage)
         {
-            if(options.storage === 'local') this.storage = localStorage;
-            else if(options.storage === 'session') this.storage = sessionStorage;
-            else throw new Error("Invalid storage type");
+            if(typeof window === 'undefined')
+            {
+                this.storage = undefined as any;
+            }
+            else 
+            {
+                if(options.storage === 'local') this.storage = localStorage;
+                else if(options.storage === 'session') this.storage = sessionStorage;
+                else throw new Error("Invalid storage type");
+            }
         }
-        else this.storage = localStorage;
+        else
+        {
+            if(typeof window === 'undefined')
+            {
+                this.storage = undefined as any;
+            }
+            else this.storage = localStorage;
+        };
         this.encryptKeys = options.encryptKeys ?? false;
         // this.encryptValues = options.encryptValues ?? false;
     }
