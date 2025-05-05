@@ -10,9 +10,6 @@ export class MStorage
     // private readonly encryptValues: boolean;
 
     constructor(options: CreateMStorageOptions = {}) {
-        if(typeof window === 'undefined')
-            throw new Error("MStorage supported only in browser environment");
-
         if(options.storage)
         {
             if(options.storage === 'local') this.storage = localStorage;
@@ -27,16 +24,22 @@ export class MStorage
 
     public get(key: string): string | null
     {
+        if(typeof window === 'undefined')
+            return null;
         return this._getItem(this._getKey(key));
     }
 
     public set(key: string, value: string, ttl: number = 0)
     {
+        if(typeof window === 'undefined')
+            return null;
         this._setItem(this._getKey(key), value, ttl);
     }
 
     public remove(key: string | string[])
     {
+        if(typeof window === 'undefined')
+            return;
         if(Array.isArray(key))
         {
             for(const k of key)
@@ -47,11 +50,15 @@ export class MStorage
 
     public clear()
     {
+        if(typeof window === 'undefined')
+            return;
         this.storage.clear();
     }
 
     public ttl(key: string): number | null
     {
+        if(typeof window === 'undefined')
+            return null;
         return this._getTtl(this._getKey(key));
     }
 

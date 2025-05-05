@@ -1,6 +1,6 @@
 {
     "name": "browser-storage-plus",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Enhanced wrapper for localStorage/sessionStorage with additional features like type safety, expiration, encryption, and events",
     "scripts": {
         "build": "rm -rf dist && tsc"
